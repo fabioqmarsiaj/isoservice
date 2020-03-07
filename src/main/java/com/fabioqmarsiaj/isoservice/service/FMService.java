@@ -3,6 +3,7 @@ package com.fabioqmarsiaj.isoservice.service;
 import com.fabioqmarsiaj.isoservice.model.Album;
 import com.fabioqmarsiaj.isoservice.model.Band;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.ResourceAccessException;
@@ -20,6 +21,7 @@ public class FMService {
     public Band band;
     public List<Album> albums = new ArrayList<>();
 
+    @Cacheable("bands")
     public List<Band> getBands() {
         try{
             bands = getBandsFromFM();
@@ -29,6 +31,7 @@ public class FMService {
         return bands;
     }
 
+    @Cacheable("band")
     public Band getBandById(String bandId) {
         try{
             band = getBandByIdFromFM(bandId);
@@ -38,6 +41,7 @@ public class FMService {
         return band;
     }
 
+    @Cacheable("albums")
     public List<Album> getAlbums() {
         try{
             albums = getAlbumsFromFM();
