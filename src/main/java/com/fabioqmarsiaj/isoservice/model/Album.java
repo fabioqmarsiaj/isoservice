@@ -31,23 +31,47 @@ public class Album {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getImage() {
         return image;
     }
 
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     public Date getReleasedDate() {
         return releasedDate;
+    }
+
+    public void setReleasedDate(Date releasedDate) {
+        this.releasedDate = releasedDate;
     }
 
     public Band getBand() {
         return band;
     }
 
+    public void setBand(Band band) {
+        this.band = band;
+    }
+
     public List<Track> getTracks() {
         return tracks;
+    }
+
+    public void setTracks(List<Track> tracks) {
+        this.tracks = tracks;
     }
 }
