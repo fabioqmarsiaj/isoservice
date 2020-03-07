@@ -2,7 +2,7 @@
 **by Fabio Marsiaj**
 
 In this project we provide access from the ISOBAR FM Radio through a simple API made with Spring.
-We can get informations about Bands, Albuns and its tracks!
+We can get informations about Bands, Albums and its tracks!
 
 ## Summary
 
@@ -32,7 +32,7 @@ We can get informations about Bands, Albuns and its tracks!
    https://isoservice.herokuapp.com/fmservice/bands
 
    GET THE A SINGLE BAND INFO BY ID:
-      https://isoservice.herokuapp.com/fmservice/bands{bandId}
+      https://isoservice.herokuapp.com/fmservice/bands/{bandId}
 
       **You can check using the first endpoint**
 
