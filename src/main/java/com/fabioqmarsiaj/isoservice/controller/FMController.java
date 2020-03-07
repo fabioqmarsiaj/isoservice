@@ -1,5 +1,6 @@
 package com.fabioqmarsiaj.isoservice.controller;
 
+import com.fabioqmarsiaj.isoservice.model.Album;
 import com.fabioqmarsiaj.isoservice.model.Band;
 import com.fabioqmarsiaj.isoservice.service.FMService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +35,11 @@ public class FMController {
     @ResponseBody
     public ResponseEntity<Band> getBandById(@PathVariable(value = "bandId") String bandId){
         return ResponseEntity.ok(fmService.getBandById(bandId));
+    }
+
+    @RequestMapping(value = "/albums")
+    @ResponseBody
+    public ResponseEntity<List<Album>> getAlbums(){
+        return ResponseEntity.ok(fmService.getAlbums());
     }
 }

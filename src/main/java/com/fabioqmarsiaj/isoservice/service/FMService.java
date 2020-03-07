@@ -1,5 +1,6 @@
 package com.fabioqmarsiaj.isoservice.service;
 
+import com.fabioqmarsiaj.isoservice.model.Album;
 import com.fabioqmarsiaj.isoservice.model.Band;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +16,17 @@ public class FMService {
 
     @Autowired
     public RestTemplate restTemplate;
-    public List<Band> bandList = new ArrayList<>();
+    public List<Band> bands = new ArrayList<>();
     public Band band;
+    public List<Album> albums = new ArrayList<>();
 
     public List<Band> getBands() {
         try{
-            bandList = getBandsFromFM();
+            bands = getBandsFromFM();
         }catch (ResourceAccessException rE){
             rE.getMessage();
         }
-        return bandList;
+        return bands;
     }
 
     public Band getBandById(String bandId) {
@@ -36,6 +38,15 @@ public class FMService {
         return band;
     }
 
+    public List<Album> getAlbums() {
+        try{
+            albums = getAlbumsFromFM();
+        }catch (ResourceAccessException rE){
+            rE.getMessage();
+        }
+        return albums;
+    }
+
     @PostMapping(value = "/bands")
     public List<Band> getBandsFromFM(){
         return restTemplate.getForObject("https://iws-recruiting-bands.herokuapp.com/api/bands", List.class);
@@ -44,5 +55,10 @@ public class FMService {
     @PostMapping(value = "/bands/{bandId}")
     public Band getBandByIdFromFM(String bandId){
         return restTemplate.postForObject("https://iws-recruiting-bands.herokuapp.com/api/bands/" + bandId, band, Band.class);
+    }
+
+    @PostMapping(value = "/albums")
+    private List<Album> getAlbumsFromFM() {
+        return restTemplate.getForObject("https://iws-recruiting-bands.herokuapp.com/api/albums", List.class);
     }
 }
