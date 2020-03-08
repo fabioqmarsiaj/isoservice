@@ -1,13 +1,16 @@
 package com.fabioqmarsiaj.isoservice.service;
 
+import com.fabioqmarsiaj.isoservice.exception.BandNotFoundException;
 import com.fabioqmarsiaj.isoservice.model.Album;
 import com.fabioqmarsiaj.isoservice.model.Band;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +29,8 @@ public class FMService {
         try{
             bands = getBandsFromFM();
         }catch (ResourceAccessException rE){
-            rE.getMessage();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "The correct endpoint for getting Bands is https://isoservice.herokuapp.com/fmservice/bands", rE);
         }
         return bands;
     }
@@ -35,8 +39,9 @@ public class FMService {
     public Band getBandById(String bandId) {
         try{
             band = getBandByIdFromFM(bandId);
-        }catch (ResourceAccessException rE){
-            rE.getMessage();
+        }catch (BandNotFoundException bandNotFoundException){
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Band Not Found", bandNotFoundException);
         }
         return band;
     }
@@ -46,7 +51,8 @@ public class FMService {
         try{
             albums = getAlbumsFromFM();
         }catch (ResourceAccessException rE){
-            rE.getMessage();
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR, "The correct endpoint for getting Albums is https://isoservice.herokuapp.com/fmservice/albums", rE);
         }
         return albums;
     }
